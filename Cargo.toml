@@ -4,3 +4,4 @@ members = ["liuhuo_core"]
 
 [workspace.dependencies]
 serde = { version = "1.0.228", features = ["derive"] }
+slotmap = { version = "1.1.1" }

@@ -20,7 +20,7 @@ pub struct RawField {
 /// 原始 Bean 定义。只包含最基本的信息，不含任何结构化的内容。用于从配置文件中读取 Bean 定义。
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct RawBean {
-    pub namespace: String,
+    pub module: String,
     pub name: String,
     pub parent: Option<String>,
 
@@ -46,10 +46,10 @@ pub struct RawBean {
 
 impl RawBean {
     pub fn full_name(&self) -> String {
-        if self.namespace.is_empty() {
+        if self.module.is_empty() {
             self.name.clone()
         } else {
-            format!("{}.{}", self.namespace, self.name)
+            format!("{}.{}", self.module, self.name)
         }
     }
 }

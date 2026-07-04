@@ -2,7 +2,7 @@ use crate::Tags;
 
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct RawTable {
-    pub namespace: String,
+    pub module: String,
     pub name: String,
     pub index: String,
     pub value_type: String,
@@ -27,10 +27,10 @@ pub struct RawTable {
 
 impl RawTable {
     pub fn full_name(&self) -> String {
-        if self.namespace.is_empty() {
+        if self.module.is_empty() {
             self.name.clone()
         } else {
-            format!("{}.{}", self.namespace, self.name)
+            format!("{}.{}", self.module, self.name)
         }
     }
 }

@@ -6,15 +6,15 @@ pub use raw_bean::*;
 pub use raw_enum::*;
 pub use raw_table::*;
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
 
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct RawAssembly {
     #[serde(default)]
-    pub beans: Vec<RawBean>,
+    pub enums: Vec<RawEnum>,
 
     #[serde(default)]
-    pub enums: Vec<RawEnum>,
+    pub beans: Vec<RawBean>,
 
     #[serde(default)]
     pub tables: Vec<RawTable>,
@@ -29,4 +29,12 @@ pub struct RawAssembly {
     // pub ref_groups: Vec<RawRefGroup>,
     #[serde(default)]
     pub const_aliases: BTreeMap<String, String>,
+}
+
+/// 原始的 Group 定义。
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct RawGroup {
+    pub name: String,
+    pub default: bool,
+    pub key_set: HashSet<String>,
 }
