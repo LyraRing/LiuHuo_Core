@@ -1,5 +1,6 @@
 pub use crate::Tags;
 use crate::{
+    defs::EnumId,
     raw_defs::{RawEnum, RawEnumItem},
     utility::parse_string2int,
 };
@@ -11,6 +12,9 @@ use std::collections::HashSet;
 /// 定义的 Enum 信息。包含 name、alias、value、comment 等信息。
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct DefEnum {
+    #[serde(skip)]
+    pub id: EnumId,
+
     pub name: String,
     pub module: String,
     pub comment: Option<String>,
@@ -54,6 +58,7 @@ impl DefEnum {
     /// 根据 RawEnum 创建 DefEnum 实例
     pub fn new(raw: &RawEnum) -> Self {
         Self {
+            id: Default::default(),
             name: raw.name.clone(),
             module: raw.module.clone(),
             comment: raw.comment.clone(),

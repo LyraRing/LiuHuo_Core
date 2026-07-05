@@ -1,11 +1,12 @@
 pub mod config;
 pub mod defs;
 pub mod raw_defs;
+pub mod r#type;
 pub mod utility;
 
-use std::collections::BTreeMap;
+use std::collections::HashMap;
 
-pub type Tags = BTreeMap<String, String>;
+pub type Tags = HashMap<String, String>;
 
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct LiuHuoConfig {}
