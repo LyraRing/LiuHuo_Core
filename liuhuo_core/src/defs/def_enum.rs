@@ -57,30 +57,34 @@ pub struct DefEnumItem {
 impl DefEnum {
     /// 根据 RawEnum 创建 DefEnum 实例
     pub fn new(raw: &RawEnum) -> Self {
+        let items = raw
+            .items
+            .iter()
+            .map(|item| DefEnumItem::new(item))
+            .collect();
+
         Self {
             id: Default::default(),
+
             name: raw.name.clone(),
             module: raw.module.clone(),
             comment: raw.comment.clone(),
             tags: raw.tags.clone(),
             groups: raw.groups.clone(),
+
             is_flags: raw.is_flags,
             is_unique_item_id: raw.is_unique_item_id,
-            items: raw
-                .items
-                .iter()
-                .enumerate()
-                .map(|(index, item)| {
-                    let mut def_item = DefEnumItem::new(item);
-                    def_item.auto_index = index;
-                    def_item
-                })
-                .collect(),
+            items,
 
             name_to_value: HashMap::new(),
             value_to_name: HashMap::new(),
             value_to_alias: HashMap::new(),
         }
+    }
+
+    /// 设置 Enum 的唯一标识符
+    pub fn set_id(&mut self, id: EnumId) {
+        self.id = id;
     }
 
     /// 获取 Enum 的全名，格式为 "module.name"。如果 module 为空，则返回 name。

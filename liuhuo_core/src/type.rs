@@ -1,6 +1,7 @@
 use crate::{
     Tags,
-    defs::{BeanId, EnumId},
+    defs::{BeanId, DefAssembly, EnumId},
+    utility::parse_type,
 };
 
 pub const TAG_KEY_RANGE: &str = "range";
@@ -112,6 +113,17 @@ impl TypeKind {
                 | TypeKind::List { .. }
                 | TypeKind::Set { .. }
                 | TypeKind::Map { .. }
+        )
+    }
+
+    pub fn parse(type_str: &str, asm: &DefAssembly) -> Result<Self, String> {
+        // 解析类型字符串，返回对应的 TypeKind 实例
+        // 这里需要实现具体的解析逻辑，根据 type_str 的格式来判断是基础类型、枚举类型、Bean 类型还是集合类型
+        // 如果解析失败，返回 Err(String) 错误信息
+        parse_type(
+            type_str,
+            &asm.full_name_to_enum_id,
+            &asm.full_name_to_bean_id,
         )
     }
 }

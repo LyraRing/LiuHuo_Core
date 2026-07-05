@@ -5,16 +5,16 @@ use crate::Tags;
 pub struct RawField {
     pub name: String,
     pub alias: Option<String>,
-    pub r#type: String,
+    pub type_str: String,
     pub comment: Option<String>,
+
     #[serde(default)]
     pub tags: Tags,
     #[serde(default)]
-    pub variants: Vec<String>,
-    #[serde(default)]
-    pub not_name_validation: bool,
-    #[serde(default)]
     pub groups: Vec<String>,
+
+    #[serde(default)]
+    pub variants: Vec<String>,
 }
 
 /// 原始 Bean 定义。只包含最基本的信息，不含任何结构化的内容。用于从配置文件中读取 Bean 定义。
@@ -22,7 +22,7 @@ pub struct RawField {
 pub struct RawBean {
     pub module: String,
     pub name: String,
-    pub parent: Option<String>,
+    pub parent_str: Option<String>,
 
     #[serde(default)]
     pub is_value_type: bool,
